@@ -1,4 +1,3 @@
-"""
 import setuptools
 
 setuptools.setup(
@@ -8,8 +7,8 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         "base58",
-        "solders",
+        "solders==0.21",
         "solana==0.34.3",
     ],
 )
-"""
+
