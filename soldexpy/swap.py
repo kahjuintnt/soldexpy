@@ -96,6 +96,7 @@ class Swap:
         payer: Keypair,
         update_vault: bool = True,
         confirm_commitment: str = "confirmed",
+        priority_fee: int = 25000,
     ):
         # get min amount out
         _, _, expect_amount_out, _ = self.pool.get_price(
@@ -106,7 +107,7 @@ class Swap:
         amount_in = self.pool.convert_quote_token_amount_to_tx_format(amount_in)
         amount_out = self.pool.convert_base_token_amount_to_tx_format(amount_out)
         # buy
-        swap_transaction_builder = SwapTransactionBuilder(self.client, self.pool, payer)
+        swap_transaction_builder = SwapTransactionBuilder(self.client, self.pool, payer, unit_price = priority_fee)
         swap_transaction_builder.append_buy(amount_in, amount_out, True)
         transaction = swap_transaction_builder.compile_versioned_transaction()
         txn_signature = client_wrapper.send_transaction(self.client, transaction).value
@@ -126,6 +127,7 @@ class Swap:
         payer: Keypair,
         update_vault: bool = True,
         confirm_commitment: str = "confirmed",
+        priority_fee: int = 25000,
     ):
         # get min amount out
         _, _, expect_amount_out, _ = self.pool.get_price(
@@ -136,7 +138,7 @@ class Swap:
         amount_in = self.pool.convert_base_token_amount_to_tx_format(amount_in)
         amount_out = self.pool.convert_quote_token_amount_to_tx_format(amount_out)
         # sell
-        swap_transaction_builder = SwapTransactionBuilder(self.client, self.pool, payer)
+        swap_transaction_builder = SwapTransactionBuilder(self.client, self.pool, payer, unit_price = priority_fee)
         swap_transaction_builder.append_sell(amount_in, amount_out)
         transaction = swap_transaction_builder.compile_versioned_transaction()
         txn_signature = client_wrapper.send_transaction(self.client, transaction).value
