@@ -1,6 +1,6 @@
 base58
 solders
-solana==0.31.0
+solana==0.34.3
 aiohttp
 requests
 munch
